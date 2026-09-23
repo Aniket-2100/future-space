@@ -1,0 +1,1125 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Future Space // Relativistic Cosmology & Inter-Brane Engineering</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-code { font-family: 'JetBrains Mono', monospace; }
+    
+    /* Andromeda Deep Nebula Gradient Atmosphere */
+    .nebula-canvas-layer {
+      background: 
+        radial-gradient(ellipse at 70% 30%, rgba(217, 70, 239, 0.18) 0%, transparent 55%),
+        radial-gradient(ellipse at 30% 70%, rgba(14, 165, 233, 0.16) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.12) 0%, transparent 60%),
+        #020617;
+    }
+
+    /* Scanlines */
+    .scanlines {
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
+      background-size: 100% 3px;
+      pointer-events: none;
+    }
+
+    /* Glass Panels */
+    .glass-panel {
+      background: rgba(8, 15, 30, 0.72);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(56, 189, 248, 0.22);
+      box-shadow: 0 10px 40px -10px rgba(14, 165, 233, 0.25), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: rgba(10, 18, 38, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.18);
+      transform-style: preserve-3d;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.15s ease-out;
+    }
+    .glass-card:hover {
+      border-color: rgba(217, 70, 239, 0.6);
+      box-shadow: 0 20px 50px -10px rgba(217, 70, 239, 0.22), 0 0 30px rgba(56, 189, 248, 0.2);
+    }
+
+    /* Hexagonal Polygons */
+    .btn-hex {
+      clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+    }
+
+    /* 3D Coin-Toss Flip Animation for Chatbot Entry */
+    @keyframes coinTossEnter {
+      0% {
+        opacity: 0;
+        transform: perspective(1400px) rotateY(720deg) rotateX(30deg) scale(0.15) translateY(200px);
+      }
+      65% {
+        opacity: 1;
+        transform: perspective(1400px) rotateY(-25deg) rotateX(-10deg) scale(1.04) translateY(-15px);
+      }
+      85% {
+        transform: perspective(1400px) rotateY(10deg) rotateX(5deg) scale(0.98) translateY(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: perspective(1400px) rotateY(0deg) rotateX(0deg) scale(1) translateY(0);
+      }
+    }
+
+    .coin-toss-active {
+      animation: coinTossEnter 0.85s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: #020617; }
+    ::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.4); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(217, 70, 239, 0.8); }
+  </style>
+</head>
+<body class="nebula-canvas-layer text-slate-100 min-h-screen selection:bg-fuchsia-500/30 selection:text-fuchsia-200 relative overflow-x-hidden">
+
+  <!-- 3D Three.js Universe -->
+  <canvas id="universe-canvas" class="fixed inset-0 w-full h-full z-0 pointer-events-none"></canvas>
+  <div class="scanlines fixed inset-0 z-10"></div>
+  <div class="fixed inset-0 pointer-events-none z-10" 
+       style="background: radial-gradient(circle at center, transparent 35%, rgba(2,6,23,0.85) 100%);"></div>
+
+  <!-- Persistent Global Navigation Bar -->
+  <header class="fixed top-0 left-0 right-0 z-40 border-b border-cyan-500/20 bg-[#020617]/80 backdrop-blur-2xl px-6 py-4 flex items-center justify-between">
+    <a href="#hero" class="flex items-center space-x-3 group">
+      <div class="relative w-10 h-10 flex items-center justify-center">
+        <svg class="absolute inset-0 w-full h-full text-cyan-400 group-hover:rotate-90 transition duration-1000" viewBox="0 0 100 100" fill="none">
+          <ellipse cx="50" cy="50" rx="46" ry="18" stroke="currentColor" stroke-width="2.5" stroke-dasharray="4 2" transform="rotate(-25 50 50)"/>
+          <ellipse cx="50" cy="50" rx="38" ry="12" stroke="rgba(217,70,239,0.8)" stroke-width="1.8" transform="rotate(25 50 50)"/>
+        </svg>
+        <svg class="w-4 h-4 text-white transform -rotate-45 group-hover:scale-125 transition" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.5s3.5 3.5 4.5 8.5c1 .5 3.5 2 3.5 3.5 0 1-1.5 1-2.5 1l-1 3.5-3-1.5-1.5 2.5-1.5-2.5-3 1.5-1-3.5c-1 0-2.5 0-2.5-1 0-1.5 2.5-3 3.5-3.5C8.5 6 12 2.5 12 2.5z"/>
+        </svg>
+      </div>
+      <div>
+        <div class="text-base font-extrabold tracking-widest uppercase text-white font-mono-code flex items-center gap-2">
+          <span>FUTURE SPACE</span>
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        </div>
+        <span class="text-[9px] font-mono-code tracking-wider text-cyan-400 uppercase">Relativistic Multi-Brane Research</span>
+      </div>
+    </a>
+
+    <nav class="hidden md:flex items-center space-x-8 text-xs font-mono-code text-slate-300">
+      <a href="#hero" class="hover:text-cyan-400 transition">01 // HORIZON</a>
+      <a href="#articles" class="hover:text-cyan-400 transition">02 // RESEARCH PAPERS</a>
+      <a href="#reviews" class="hover:text-cyan-400 transition">03 // PEER REVIEWS</a>
+      <a href="#contact" class="hover:text-cyan-400 transition">04 // TELEMETRY & CONTACT</a>
+    </nav>
+
+    <div class="flex items-center space-x-4">
+      <button 
+        onclick="openOracleChamber()"
+        class="btn-hex px-5 py-2 text-xs font-mono-code font-bold uppercase tracking-wider text-black bg-gradient-to-r from-cyan-400 via-sky-300 to-fuchsia-400 hover:from-white hover:to-cyan-300 shadow-[0_0_20px_rgba(56,189,248,0.5)] transition active:scale-95 flex items-center gap-1.5"
+      >
+        <span>⚡</span> Future Space AI
+      </button>
+
+      <button id="audio-toggle" class="btn-hex px-3.5 py-1.5 bg-slate-900/80 border border-cyan-500/30 text-[10px] font-mono-code text-cyan-300 hover:border-cyan-400 transition">
+        SFX: <span id="audio-state" class="text-cyan-400 font-bold">ON</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Foreground Scroll Content -->
+  <div class="relative z-20 flex flex-col w-full">
+
+    <!-- DECK 1: HERO -->
+    <section id="hero" class="min-h-screen flex flex-col justify-center items-center px-6 pt-28 pb-16 text-center max-w-5xl mx-auto">
+      <div class="inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full border border-fuchsia-500/40 bg-fuchsia-950/40 text-fuchsia-300 text-xs font-mono-code mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(217,70,239,0.3)]">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        <span>INFRARED ANDROMEDA CORE SYNCHRONIZED</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white uppercase max-w-4xl leading-tight">
+        Beyond The 3D Brane. <br/>
+        <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-fuchsia-400 bg-clip-text text-transparent">Future Space</span>
+      </h1>
+
+      <p class="mt-6 text-slate-300 max-w-2xl text-sm sm:text-base leading-relaxed">
+        Pioneering relativistic cosmology: from black hole spatial walls and 4D gravity shadows to vacuum impedance and cyclic brane dynamics. Scroll down to enter relativistic wormhole transit and explore the research.
+      </p>
+
+      <div class="mt-10 flex flex-wrap gap-5 justify-center items-center">
+        <a
+          href="#articles"
+          class="btn-hex px-9 py-4 font-mono-code text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-cyan-400 via-sky-300 to-teal-300 hover:from-white hover:to-cyan-300 shadow-[0_0_30px_rgba(56,189,248,0.5)] transition transform active:scale-95"
+        >
+          Explore Research Papers ↓
+        </a>
+        <button
+          onclick="openOracleChamber()"
+          class="btn-hex px-8 py-4 font-mono-code text-xs font-semibold uppercase tracking-wider text-fuchsia-300 bg-slate-950/80 border border-fuchsia-500/40 hover:bg-fuchsia-950/60 hover:border-fuchsia-400 transition"
+        >
+          Launch AI Console [Flip]
+        </button>
+      </div>
+
+      <div class="mt-16 flex flex-col items-center space-y-2 opacity-80 animate-bounce">
+        <span class="text-[10px] font-mono-code tracking-widest text-cyan-400 uppercase">Scroll to enter relativistic wormhole</span>
+        <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- DECK 2: ARTICLES -->
+    <section id="articles" class="min-h-screen flex flex-col justify-center px-4 sm:px-6 py-28 max-w-6xl mx-auto w-full">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="inline-block px-4 py-1 rounded-full border border-cyan-500/40 bg-cyan-950/40 text-cyan-300 text-xs font-mono-code mb-3 shadow-[0_0_15px_rgba(56,189,248,0.25)]">
+          SUPERNOVA TRANSITION ZONE // PUBLISHED PAPERS
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">Cosmological Research Archive</h2>
+        <p class="text-slate-300 text-sm mt-3">Interactive 3D tilt cards. Each doctrine is published and verified on LinkedIn—click through to inspect the complete papers.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Paper 1 -->
+        <article class="tilt-card glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono-code mb-3">
+              <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-400/30 text-cyan-400 font-bold">PAPER 01</span>
+              <span class="text-slate-500">GR-4D</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">Another World Beyond Blackhole</h3>
+            <p class="text-xs text-slate-300 font-mono-code leading-relaxed mb-6">
+              A physical rejection of mathematical infinities. Within supermassive black holes, spacetime does not collapse to zero volume; it forms a physical spatial wall opening into the 4D Bulk.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-cyan-500/20 flex items-center justify-between text-xs font-mono-code">
+            <span class="text-slate-400">By <strong class="text-cyan-300">Aniket Sharma</strong></span>
+            <a 
+              href="https://www.linkedin.com/pulse/another-world-beyond-blackhole-aniket-sharma-fr11c/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-cyan-400 hover:text-white font-bold flex items-center gap-1 transition"
+            >
+              Read on LinkedIn ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 2 -->
+        <article class="tilt-card glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono-code mb-3">
+              <span class="px-2.5 py-0.5 rounded-full bg-fuchsia-500/10 border border-fuchsia-400/30 text-fuchsia-400 font-bold">PAPER 02</span>
+              <span class="text-slate-500">DM-SHADOW</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">Quantum Horizon: Why Gravity is a Literal Shadow (4D Dark Matter)</h3>
+            <p class="text-xs text-slate-300 font-mono-code leading-relaxed mb-6">
+              Dark matter possesses no electromagnetic signature because it does not exist on our 3D membrane. It is regular baryonic mass on an adjacent brane whose gravitational flux leaks into our spacetime.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-cyan-500/20 flex items-center justify-between text-xs font-mono-code">
+            <span class="text-slate-400">By <strong class="text-fuchsia-300">Aniket Sharma</strong></span>
+            <a 
+              href="https://www.linkedin.com/pulse/quantum-horizon-why-gravity-literal-shadow-4d-dark-matter-sharma-tncvc/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-fuchsia-400 hover:text-white font-bold flex items-center gap-1 transition"
+            >
+              Read on LinkedIn ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 3 -->
+        <article class="tilt-card glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono-code mb-3">
+              <span class="px-2.5 py-0.5 rounded-full bg-sky-500/10 border border-sky-400/30 text-sky-400 font-bold">PAPER 03</span>
+              <span class="text-slate-500">C-LIMIT</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">Relativistic Illusion: Why Light Speed is Everywhere (3D) & Nowhere</h3>
+            <p class="text-xs text-slate-300 font-mono-code leading-relaxed mb-6">
+              The 300,000 km/s limit is an internal vacuum impedance ceiling dictated by local permeability and permittivity ($c = 1/\sqrt{\mu_0 \varepsilon_0}$). The Bulk operates free of this local bandwidth cap.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-cyan-500/20 flex items-center justify-between text-xs font-mono-code">
+            <span class="text-slate-400">By <strong class="text-sky-300">Aniket Sharma</strong></span>
+            <a 
+              href="https://www.linkedin.com/pulse/relativistic-illusion-why-light-speed-everywhere-3d-nowhere-sharma-v7vmc/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-sky-400 hover:text-white font-bold flex items-center gap-1 transition"
+            >
+              Read on LinkedIn ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 4 -->
+        <article class="tilt-card glass-card rounded-3xl p-7 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono-code mb-3">
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-400 font-bold">PAPER 04</span>
+              <span class="text-slate-500">5D-BRAKE</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 leading-snug">Dimensional Projection Matrix: Why Mass & Speed Limit Time</h3>
+            <p class="text-xs text-slate-300 font-mono-code leading-relaxed mb-6">
+              Dark energy is identified as 5D membrane stretching tension. As tension reaches its mathematical threshold, the cosmic brake engages, initiating cyclic contraction and a Big Bang reset.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-cyan-500/20 flex items-center justify-between text-xs font-mono-code">
+            <span class="text-slate-400">By <strong class="text-purple-300">Aniket Sharma</strong></span>
+            <a 
+              href="https://www.linkedin.com/pulse/dimensional-projection-matrix-why-mass-speed-limits-time-sharma-asp5f/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="text-purple-400 hover:text-white font-bold flex items-center gap-1 transition"
+            >
+              Read on LinkedIn ↗
+            </a>
+          </div>
+        </article>
+
+        <!-- Paper 5 -->
+        <article class="tilt-card glass-card rounded-3xl p-7 flex flex-col justify-between md:col-span-2 lg:col-span-2 cursor-pointer" onclick="openDossierModal()">
+          <div>
+            <div class="flex items-center justify-between text-xs font-mono-code mb-3">
+              <span class="px-2.5 py-0.5 rounded-full bg-teal-500/10 border border-teal-400/30 text-teal-400 font-bold">DOCTRINE 05 // SYSTEM SPEC</span>
+              <span class="text-slate-500">PINN-TENSOR</span>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-2 leading-snug">The Software Engine Interstellar Mandate: PINN-Driven Geodesics</h3>
+            <p class="text-xs text-slate-300 font-mono-code leading-relaxed mb-6">
+              Chemical rocketry cannot scale for multi-light-year transit. Interstellar translation is an information architecture challenge: requiring Physics-Informed Neural Networks (PINNs) solving real-time relativistic tensor fields across 5D manifold punctures.
+            </p>
+          </div>
+          <div class="pt-4 border-t border-cyan-500/20 flex items-center justify-between text-xs font-mono-code">
+            <span class="text-slate-400">By <strong class="text-teal-300">Aniket Sharma</strong></span>
+            <span class="text-teal-400 hover:text-white font-bold flex items-center gap-1 transition">
+              Inspect Architecture Dossier →
+            </span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- DECK 3: SERVER-SYNCED PEER REVIEWS -->
+    <section id="reviews" class="min-h-screen flex flex-col justify-center px-4 sm:px-6 py-28 max-w-5xl mx-auto w-full">
+      <div class="glass-panel rounded-3xl p-8 sm:p-10 shadow-2xl relative">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-8 pb-6 border-b border-cyan-500/20 gap-4">
+          <div>
+            <span class="text-xs font-mono-code text-cyan-400 uppercase tracking-widest">Section 03 // Global Server Peer Validation</span>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white font-mono-code mt-1">Theoretical Peer Reviews</h2>
+            <p class="text-xs text-slate-400 font-mono-code mt-1">Submit feedback, mathematical critiques, or experimental verifications. Saved on the live server.</p>
+          </div>
+          <span class="text-xs font-mono-code px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 self-start sm:self-auto" id="review-counter">
+            Connecting to node...
+          </span>
+        </div>
+
+        <!-- Form with UNFILLED/SELECTABLE Star Rating -->
+        <form id="comment-form" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input
+              type="text"
+              id="reviewer-name"
+              placeholder="Your Name / Academic Institution"
+              required
+              class="bg-slate-950/80 border border-cyan-500/30 rounded-xl px-4 py-3 text-xs font-mono-code text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"
+            />
+            
+            <!-- Interactive Stars (Unfilled by default) -->
+            <div class="flex items-center justify-between bg-slate-950/80 border border-cyan-500/30 rounded-xl px-4 py-2.5 text-xs font-mono-code">
+              <span class="text-slate-400">Your Score:</span>
+              <div id="star-rating" class="flex space-x-1.5 cursor-pointer text-slate-600 text-lg select-none">
+                <span data-value="1" class="transition-colors hover:scale-125">★</span>
+                <span data-value="2" class="transition-colors hover:scale-125">★</span>
+                <span data-value="3" class="transition-colors hover:scale-125">★</span>
+                <span data-value="4" class="transition-colors hover:scale-125">★</span>
+                <span data-value="5" class="transition-colors hover:scale-125">★</span>
+              </div>
+              <span id="rating-label" class="text-[10px] text-cyan-400 font-mono-code">Select rating</span>
+            </div>
+          </div>
+          <textarea
+            id="reviewer-comment"
+            rows="3"
+            placeholder="Provide theoretical commentary or mathematical notes on the 4D shadow model..."
+            required
+            class="w-full bg-slate-950/80 border border-cyan-500/30 rounded-xl p-4 text-xs font-mono-code text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition resize-none"
+          ></textarea>
+          <div class="flex justify-end">
+            <button
+              type="submit"
+              id="submit-review-btn"
+              class="btn-hex px-8 py-3 font-mono-code text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-cyan-400 to-sky-300 hover:from-white hover:to-cyan-300 transition"
+            >
+              Post Peer Review
+            </button>
+          </div>
+        </form>
+
+        <div id="reviews-feed" class="mt-8 space-y-3.5 max-h-72 overflow-y-auto pr-2">
+          <!-- Populated from server -->
+        </div>
+      </div>
+    </section>
+
+    <!-- DECK 4: FOOTER & CONTACT -->
+    <footer id="contact" class="border-t border-cyan-500/20 bg-[#020617]/95 backdrop-blur-2xl py-16 px-6">
+      <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
+        
+        <div class="space-y-4 md:col-span-1">
+          <div class="flex items-center space-x-2.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span class="font-mono-code text-base font-bold tracking-widest text-white uppercase">Future Space</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed font-mono-code">
+            Higher-dimensional cosmology, real-time AI telemetry, and planetary exploration architectures.
+          </p>
+          <div class="text-[10px] font-mono-code text-cyan-400/80">
+            FOUNDER: ANIKET SHARMA
+          </div>
+        </div>
+
+        <div class="space-y-3 font-mono-code text-xs">
+          <div class="text-white font-semibold uppercase tracking-wider text-[11px]">Ecosystem Hub</div>
+          <ul class="space-y-2 text-slate-400">
+            <li><button onclick="openOracleChamber()" class="hover:text-cyan-400 transition text-left">Future Space AI Console</button></li>
+            <li><a href="#articles" class="hover:text-cyan-400 transition">Published Doctrine Papers</a></li>
+            <li><a href="https://dev-radar.whozknowani2400.chatgpt.site/" target="_blank" rel="noopener noreferrer" class="hover:text-cyan-400 transition text-fuchsia-400">Dev Radar Ecosystem ↗</a></li>
+            <li><span class="text-slate-600">PINN Manifold Nav (Phase 2)</span></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3 font-mono-code text-xs">
+          <div class="text-white font-semibold uppercase tracking-wider text-[11px]">Governance & Policy</div>
+          <ul class="space-y-2 text-slate-400">
+            <li><button onclick="alert('Privacy Policy: All queries processed via isolated Flask API gateway without telemetry persistence.')" class="hover:text-cyan-400 transition text-left">Privacy Policy</button></li>
+            <li><button onclick="alert('Theoretical Copyright: The Five Doctrines are proprietary cosmological models of Aniket Sharma / Future Space.')" class="hover:text-cyan-400 transition text-left">Cosmological IP Rights</button></li>
+            <li><button onclick="alert('Architecture: Operating locally on gemini-3.5-flash-lite endpoint.')" class="hover:text-cyan-400 transition text-left">Security Framework</button></li>
+          </ul>
+        </div>
+
+        <div class="space-y-3 font-mono-code text-xs">
+          <div class="text-white font-semibold uppercase tracking-wider text-[11px]">Direct Transmission</div>
+          <p class="text-slate-400 text-xs leading-relaxed">
+            Connect for research collaborations, institutional backing, or AI engineering:
+          </p>
+          <a
+            href="https://www.linkedin.com/in/aniket-sharma-zenithschoolofai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-cyan-500/30 bg-cyan-950/50 text-cyan-300 hover:text-white hover:border-cyan-400 hover:bg-cyan-900/40 transition w-full justify-center"
+          >
+            <span>LinkedIn: Aniket Sharma</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+          </a>
+          <div class="text-[10px] text-slate-500">
+            AFFILIATION: ZENITH SCHOOL OF AI
+          </div>
+        </div>
+
+      </div>
+
+      <div class="max-w-6xl mx-auto mt-12 pt-8 border-t border-slate-900 flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono-code text-slate-500 gap-4">
+        <div>
+          © 2026 Future Space. Authored and engineered by Aniket Sharma.
+        </div>
+        <div class="flex items-center space-x-4 text-slate-400">
+          <span>COORDINATES: EARTH SECTOR 01</span>
+          <span>•</span>
+          <span class="text-cyan-400">ANDROMEDA BEAM ONLINE</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ==========================================================================
+       FUTURE SPACE AI COMMAND CHAMBER
+       - 3D Coin-Toss Flip Entry Animation
+       - Interactive 3D Cursor-Tracking Perspective Tilt
+       ========================================================================== -->
+  <div id="oracle-modal-backdrop" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6">
+    
+    <!-- 3D Flipping & Tilting Window -->
+    <div 
+      id="oracle-window" 
+      class="tilt-card glass-panel max-w-2xl w-full h-[620px] rounded-3xl p-6 sm:p-8 flex flex-col border border-cyan-400/40 shadow-[0_0_60px_rgba(6,182,212,0.35)] relative"
+      style="transform-style: preserve-3d;"
+    >
+      <!-- Window Header Bar -->
+      <div class="flex items-center justify-between pb-4 border-b border-cyan-500/20 bg-slate-950/40 -mx-6 -mt-6 px-6 pt-6 rounded-t-3xl">
+        <div class="flex items-center space-x-3">
+          <span class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></span>
+          <div>
+            <h3 class="text-sm font-bold tracking-wider uppercase text-white font-mono-code flex items-center gap-2">
+              <span>FUTURE SPACE AI // CHAMBER</span>
+              <span class="text-[9px] px-2 py-0.5 rounded bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">gemini-3.5-flash-lite</span>
+            </h3>
+            <p class="text-[10px] text-slate-400 font-mono-code">5D Brane Tension & Relativistic Tensor Node</p>
+          </div>
+        </div>
+        <button onclick="closeOracleChamber()" class="btn-hex px-4 py-1.5 bg-slate-900 border border-cyan-500/30 text-xs font-mono-code text-cyan-300 hover:text-white transition">
+          ✕ Close [ESC]
+        </button>
+      </div>
+
+      <!-- Dialogue Stream -->
+      <div id="chat-box" class="flex-1 overflow-y-auto pr-2 py-4 space-y-3.5 font-mono-code text-xs">
+        <div class="p-4 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-slate-200">
+          <div class="flex items-center space-x-2 text-cyan-400 font-semibold mb-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span>THE COSMIC ORACLE v2.5 SYNCHRONIZED</span>
+          </div>
+          Welcome, Operator Aniket. All five cosmological doctrines are active. Interrogate me regarding 4D Bulk projections, vacuum speed-of-light limits, or the 5D cyclic tension model.
+        </div>
+      </div>
+
+      <!-- Submission Bar -->
+      <form id="chat-form" class="pt-3 border-t border-cyan-500/20 flex items-center gap-2">
+        <input
+          type="text"
+          id="user-input"
+          placeholder="Query the Future Space engine..."
+          required
+          autocomplete="off"
+          class="flex-1 bg-slate-900/90 border border-cyan-500/30 text-white placeholder-slate-500 text-xs font-mono-code rounded-xl px-4 py-3.5 focus:outline-none focus:border-cyan-400 transition"
+        />
+        <button
+          type="submit"
+          id="submit-btn"
+          class="btn-hex px-6 py-3.5 font-mono-code text-xs font-bold uppercase tracking-wider text-black bg-gradient-to-r from-cyan-400 to-sky-300 hover:from-white hover:to-cyan-300 transition"
+        >
+          <span id="btn-text">Transmit</span>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Persistent Floating Trigger (Bottom-Right) -->
+  <button 
+    onclick="openOracleChamber()"
+    class="fixed bottom-6 right-6 z-40 btn-hex p-4 bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-black shadow-[0_0_30px_rgba(56,189,248,0.5)] hover:scale-105 active:scale-95 transition flex items-center gap-2 font-mono-code text-xs font-bold uppercase tracking-wider"
+  >
+    <span class="text-base">⚡</span>
+    <span class="hidden sm:inline">Launch AI Console</span>
+  </button>
+
+  <!-- ==========================================================================
+       PINN DOSSIER MODAL
+       ========================================================================== -->
+  <div id="dossier-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 transition-all">
+    <div class="glass-panel max-w-3xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 flex flex-col border border-teal-500/30 shadow-[0_0_50px_rgba(20,184,166,0.3)]">
+      <div class="flex items-center justify-between pb-4 border-b border-teal-500/20">
+        <div>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-teal-400 font-mono-code">DOCTRINE 05 // SYSTEM SPEC</span>
+          <h2 class="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">The Software Engine Interstellar Mandate</h2>
+        </div>
+        <button onclick="closeDossierModal()" class="btn-hex px-4 py-1.5 bg-slate-900 text-xs font-mono-code text-teal-300 hover:text-white border border-teal-500/30">
+          ✕ Close [ESC]
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto pr-3 py-6 space-y-4 text-slate-200 font-mono-code text-xs sm:text-sm leading-relaxed">
+        <div class="p-4 rounded-xl bg-teal-950/40 border border-teal-500/30 text-teal-300 text-xs">
+          <strong>CORE FORMULATION:</strong> Long-range multi-brane translation is constrained by computational speed, not propellant mass. Geodesics through the 4D Bulk require instantaneous solving of non-linear Einstein-Brane tensors.
+        </div>
+        <p>Physical chemical rocketry scales with exponential fuel mass penalties (Tsiolkovsky rocket equation). Crossing multi-light-year distances inside our 3D manifold faces both electromagnetic vacuum impedance and relativistic time dilation.</p>
+        <p><strong>The Information Paradigm:</strong> Future Space frames interstellar navigation as an optimization challenge. Physics-Informed Neural Networks (PINNs) incorporate Riemannian curvature equations directly into their gradient backpropagation loops.</p>
+        <p>By computing precise 5D stress-energy boundary metrics, transit craft navigate geodesic wormhole channels across the Bulk, avoiding relativistic time penalties and enabling scalable exploration.</p>
+      </div>
+
+      <div class="pt-4 border-t border-teal-500/20 flex items-center justify-between text-xs font-mono-code">
+        <span>Principal Author: <strong class="text-teal-300">Aniket Sharma</strong></span>
+        <button onclick="closeDossierModal()" class="btn-hex px-6 py-2 text-xs font-bold text-black bg-teal-400 hover:bg-white uppercase">
+          Acknowledge
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       THREE.JS HYPER-COSMOS ENGINE & SCRIPT SUBSYSTEMS
+       ========================================================================== -->
+  <script>
+    /* Audio Subsystem */
+    let sfxEnabled = true;
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playTone(freq, type = "sine", duration = 0.08, gainVal = 0.04) {
+      if (!sfxEnabled) return;
+      if (!audioCtx) audioCtx = new AudioCtx();
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (e) {}
+    }
+
+    document.getElementById("audio-toggle").addEventListener("click", () => {
+      sfxEnabled = !sfxEnabled;
+      document.getElementById("audio-state").innerText = sfxEnabled ? "ON" : "OFF";
+      document.getElementById("audio-state").className = sfxEnabled ? "text-cyan-400 font-bold" : "text-slate-600 font-bold";
+    });
+
+    /* Three.js Canvas */
+    const canvas = document.getElementById("universe-canvas");
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x020617, 0.0006);
+
+    const camera = new THREE.PerspectiveCamera(65, window.innerWidth / window.innerHeight, 0.1, 4000);
+    camera.position.set(0, 20, 200);
+
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // Andromeda Galaxy Particle System
+    const GALAXY_COUNT = 11000;
+    const galaxyGeo = new THREE.BufferGeometry();
+    const galaxyPos = new Float32Array(GALAXY_COUNT * 3);
+    const galaxyColors = new Float32Array(GALAXY_COUNT * 3);
+
+    for (let i = 0; i < GALAXY_COUNT; i++) {
+      const idx = i * 3;
+      const radius = Math.random() * 650 + 20;
+      const spinAngle = radius * 0.016;
+      const branchAngle = ((i % 2) * Math.PI) + spinAngle;
+
+      const randomX = (Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.28) * radius;
+      const randomY = (Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.28) * radius;
+      const randomZ = (Math.pow(Math.random(), 3) * (Math.random() < 0.5 ? 1 : -1) * 0.28) * radius;
+
+      galaxyPos[idx] = Math.cos(branchAngle) * radius + randomX;
+      galaxyPos[idx + 1] = randomY * 0.45;
+      galaxyPos[idx + 2] = Math.sin(branchAngle) * radius + randomZ - 650;
+
+      const color = new THREE.Color();
+      if (radius < 90) {
+        color.setRGB(1.0, 0.95, 0.9);
+      } else if (radius < 260) {
+        color.setHSL(0.83, 1.0, 0.65);
+      } else if (radius < 450) {
+        color.setHSL(0.77, 0.9, 0.55);
+      } else {
+        color.setHSL(0.55, 1.0, 0.65);
+      }
+
+      galaxyColors[idx] = color.r;
+      galaxyColors[idx + 1] = color.g;
+      galaxyColors[idx + 2] = color.b;
+    }
+
+    galaxyGeo.setAttribute('position', new THREE.BufferAttribute(galaxyPos, 3));
+    galaxyGeo.setAttribute('color', new THREE.BufferAttribute(galaxyColors, 3));
+
+    const galaxy = new THREE.Points(galaxyGeo, new THREE.PointsMaterial({
+      size: 2.6,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.92,
+      blending: THREE.AdditiveBlending
+    }));
+    galaxy.rotation.x = 0.55;
+    galaxy.rotation.z = -0.45;
+    scene.add(galaxy);
+
+    // Relativistic Star Field with Streaking on Scroll
+    const STAR_COUNT = 4500;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(STAR_COUNT * 3);
+
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const idx = i * 3;
+      starPos[idx] = (Math.random() - 0.5) * 2400;
+      starPos[idx + 1] = (Math.random() - 0.5) * 1800;
+      starPos[idx + 2] = (Math.random() - 0.5) * 3000;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+
+    const starMat = new THREE.PointsMaterial({
+      size: 2.2,
+      color: 0x38bdf8,
+      transparent: true,
+      opacity: 0.85,
+      blending: THREE.AdditiveBlending
+    });
+    const starField = new THREE.Points(starGeo, starMat);
+    scene.add(starField);
+
+    // Automatic Supernova Shockwave
+    const supernovaGroup = new THREE.Group();
+    supernovaGroup.position.set(0, 0, -500);
+
+    const flashMesh = new THREE.Mesh(
+      new THREE.SphereGeometry(1, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.0, blending: THREE.AdditiveBlending })
+    );
+    supernovaGroup.add(flashMesh);
+
+    const shockwaveMesh = new THREE.Mesh(
+      new THREE.RingGeometry(1, 4, 64),
+      new THREE.MeshBasicMaterial({ color: 0xd946ef, side: THREE.DoubleSide, transparent: true, opacity: 0.0, blending: THREE.AdditiveBlending })
+    );
+    supernovaGroup.add(shockwaveMesh);
+
+    const EJECTA_COUNT = 2500;
+    const ejectaGeo = new THREE.BufferGeometry();
+    const ejectaPos = new Float32Array(EJECTA_COUNT * 3);
+    const ejectaColors = new Float32Array(EJECTA_COUNT * 3);
+    const ejectaVels = [];
+
+    for (let i = 0; i < EJECTA_COUNT; i++) {
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(Math.random() * 2 - 1);
+      const speed = Math.random() * 24 + 8;
+      ejectaVels.push({
+        x: Math.sin(phi) * Math.cos(theta) * speed,
+        y: Math.sin(phi) * Math.sin(theta) * speed,
+        z: Math.cos(phi) * speed
+      });
+
+      const c = new THREE.Color().setHSL(Math.random() * 0.35 + 0.5, 1.0, 0.65);
+      ejectaColors[i * 3] = c.r;
+      ejectaColors[i * 3 + 1] = c.g;
+      ejectaColors[i * 3 + 2] = c.b;
+    }
+    ejectaGeo.setAttribute('position', new THREE.BufferAttribute(ejectaPos, 3));
+    ejectaGeo.setAttribute('color', new THREE.BufferAttribute(ejectaColors, 3));
+
+    const ejectaMat = new THREE.PointsMaterial({
+      size: 4.2,
+      vertexColors: true,
+      transparent: true,
+      opacity: 0.0,
+      blending: THREE.AdditiveBlending
+    });
+    const ejectaMesh = new THREE.Points(ejectaGeo, ejectaMat);
+    supernovaGroup.add(ejectaMesh);
+    scene.add(supernovaGroup);
+
+    let supernovaTriggered = false;
+    let supernovaProgress = 0;
+
+    // Scroll & Mouse Dynamics
+    let scrollY = 0;
+    let targetScrollY = 0;
+    let scrollVelocity = 0;
+    let lastScrollTop = 0;
+
+    window.addEventListener("scroll", () => {
+      const st = window.pageYOffset || document.documentElement.scrollTop;
+      scrollVelocity = Math.abs(st - lastScrollTop);
+      lastScrollTop = st <= 0 ? 0 : st;
+      targetScrollY = st;
+    }, { passive: true });
+
+    const mouse = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    window.addEventListener("mousemove", (e) => {
+      mouse.targetX = (e.clientX / window.innerWidth) * 2 - 1;
+      mouse.targetY = -(e.clientY / window.innerHeight) * 2 + 1;
+    });
+
+    window.addEventListener("resize", () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    function renderUniverse() {
+      requestAnimationFrame(renderUniverse);
+
+      scrollY += (targetScrollY - scrollY) * 0.08;
+      const maxScroll = (document.documentElement.scrollHeight - window.innerHeight) || 1;
+      const scrollRatio = scrollY / maxScroll;
+
+      mouse.x += (mouse.targetX - mouse.x) * 0.05;
+      mouse.y += (mouse.targetY - mouse.y) * 0.05;
+
+      camera.position.z = 200 - (scrollRatio * 1400);
+      camera.position.y = 20 - (scrollRatio * 45) + mouse.y * 12;
+      camera.position.x = mouse.x * 25;
+      camera.lookAt(0, -10, camera.position.z - 300);
+
+      galaxy.rotation.y += 0.0012;
+
+      const warpFactor = 1.8 + (scrollVelocity * 0.9);
+      scrollVelocity *= 0.90;
+
+      const p = starGeo.attributes.position.array;
+      for (let i = 0; i < STAR_COUNT; i++) {
+        const idx = i * 3;
+        p[idx + 2] += warpFactor * 3.2;
+        if (p[idx + 2] > camera.position.z + 50) {
+          p[idx + 2] = camera.position.z - 2600;
+          p[idx] = (Math.random() - 0.5) * 2400;
+          p[idx + 1] = (Math.random() - 0.5) * 1800;
+        }
+      }
+      starGeo.attributes.position.needsUpdate = true;
+      starMat.size = 2.2 + (warpFactor - 1.8) * 0.25;
+
+      // Supernova on scroll
+      if (scrollRatio > 0.42 && !supernovaTriggered) {
+        supernovaTriggered = true;
+        supernovaProgress = 0.01;
+        playTone(130, "sawtooth", 0.7, 0.12);
+        supernovaGroup.position.set(camera.position.x, camera.position.y - 10, camera.position.z - 200);
+
+        const ep = ejectaGeo.attributes.position.array;
+        for (let i = 0; i < EJECTA_COUNT * 3; i++) ep[i] = 0;
+        ejectaGeo.attributes.position.needsUpdate = true;
+      }
+
+      if (scrollRatio < 0.2) {
+        supernovaTriggered = false;
+        supernovaProgress = 0;
+        flashMesh.material.opacity = 0;
+        shockwaveMesh.material.opacity = 0;
+        ejectaMat.opacity = 0;
+      }
+
+      if (supernovaTriggered && supernovaProgress > 0) {
+        supernovaProgress += 0.018;
+
+        if (supernovaProgress < 0.3) {
+          const flashScale = supernovaProgress * 300;
+          flashMesh.scale.set(flashScale, flashScale, flashScale);
+          flashMesh.material.opacity = (0.3 - supernovaProgress) * 3.3;
+        } else {
+          flashMesh.material.opacity = 0;
+        }
+
+        const ringScale = supernovaProgress * 190;
+        shockwaveMesh.scale.set(ringScale, ringScale, ringScale);
+        shockwaveMesh.rotation.z += 0.02;
+        shockwaveMesh.material.opacity = Math.max(0, (1.0 - supernovaProgress) * 0.9);
+
+        const ep = ejectaGeo.attributes.position.array;
+        for (let i = 0; i < EJECTA_COUNT; i++) {
+          const idx = i * 3;
+          ep[idx] += ejectaVels[i].x * 0.85;
+          ep[idx + 1] += ejectaVels[i].y * 0.85;
+          ep[idx + 2] += ejectaVels[i].z * 0.85;
+        }
+        ejectaGeo.attributes.position.needsUpdate = true;
+        ejectaMat.opacity = Math.max(0, (1.0 - supernovaProgress) * 0.9);
+
+        if (supernovaProgress >= 1.0) {
+          supernovaProgress = 0;
+        }
+      }
+
+      renderer.render(scene, camera);
+    }
+    renderUniverse();
+
+    /* ==========================================================================
+       3D CURSOR-TILT CARD EFFECT (Cards & Flipping Chat Window)
+       ========================================================================== */
+    function attachTiltEffects() {
+      document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          card.style.transform = `perspective(1000px) rotateX(${-y * 0.08}deg) rotateY(${x * 0.08}deg) scale3d(1.025, 1.025, 1.025)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        });
+      });
+    }
+    attachTiltEffects();
+
+    /* ==========================================================================
+       FUTURE SPACE AI MODAL (Coin-Toss Flip Animation)
+       ========================================================================== */
+    const modalBackdrop = document.getElementById("oracle-modal-backdrop");
+    const oracleWindow = document.getElementById("oracle-window");
+    let isOracleOpen = false;
+
+    function openOracleChamber() {
+      isOracleOpen = true;
+      playTone(550, "sine", 0.12, 0.06);
+      modalBackdrop.classList.remove("hidden");
+
+      // Trigger 3D Coin-Toss Flip
+      oracleWindow.classList.remove("coin-toss-active");
+      void oracleWindow.offsetWidth; // Force CSS reflow
+      oracleWindow.classList.add("coin-toss-active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeOracleChamber() {
+      isOracleOpen = false;
+      playTone(320, "sine", 0.08, 0.03);
+      modalBackdrop.classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+
+    modalBackdrop.addEventListener("click", (e) => {
+      if (e.target.id === "oracle-modal-backdrop") closeOracleChamber();
+    });
+
+    // Oracle Chat Form
+    const chatForm = document.getElementById("chat-form");
+    const userInput = document.getElementById("user-input");
+    const chatBox = document.getElementById("chat-box");
+    const submitBtn = document.getElementById("submit-btn");
+    const btnText = document.getElementById("btn-text");
+
+    chatForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const prompt = userInput.value.trim();
+      if (!prompt) return;
+
+      playTone(520, "triangle", 0.08, 0.04);
+      appendMessage("OPERATOR", prompt, "user");
+      userInput.value = "";
+      setLoading(true);
+
+      try {
+        const response = await fetch("/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ prompt: prompt })
+        });
+
+        const data = await response.json();
+        setLoading(false);
+
+        if (data.reply) {
+          playTone(880, "sine", 0.12, 0.03);
+          typewriterMessage("ORACLE // v2.5", data.reply);
+        } else {
+          appendMessage("SYSTEM HALT", data.error || "Execution terminated unexpectedly.", "error");
+        }
+      } catch (err) {
+        setLoading(false);
+        appendMessage("OFFLINE", "Local node failed to reach Flask /chat gateway.", "error");
+      }
+    });
+
+    function setLoading(isLoading) {
+      submitBtn.disabled = isLoading;
+      btnText.innerHTML = isLoading ? `<span class="animate-pulse">Computing...</span>` : "Transmit";
+    }
+
+    function appendMessage(sender, text, type) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "p-3.5 rounded-xl text-xs font-mono-code leading-relaxed transition-all";
+
+      if (type === "user") {
+        msgDiv.className += " bg-slate-900/90 border border-cyan-500/30 text-slate-100 ml-4 shadow-xl";
+        msgDiv.innerHTML = `<div class="text-[10px] uppercase font-bold tracking-wider text-cyan-400 mb-1 flex items-center justify-between">
+          <span>${sender}</span>
+          <span class="text-slate-500 text-[9px]">${new Date().toLocaleTimeString()}</span>
+        </div>
+        <div class="whitespace-pre-wrap">${escapeHtml(text)}</div>`;
+      } else if (type === "error") {
+        msgDiv.className += " bg-red-950/40 border border-red-800/50 text-red-300";
+        msgDiv.innerHTML = `<div class="text-[10px] uppercase font-bold tracking-wider text-red-400 mb-1">${sender}</div>
+        <div class="whitespace-pre-wrap">${escapeHtml(text)}</div>`;
+      }
+
+      chatBox.appendChild(msgDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function typewriterMessage(sender, fullText) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = "p-4 rounded-xl border border-cyan-500/30 bg-slate-950/90 text-xs font-mono-code leading-relaxed text-slate-200 mr-4 shadow-2xl transition-all";
+      
+      const header = document.createElement("div");
+      header.className = "text-[10px] uppercase font-bold tracking-widest text-cyan-400 mb-2 flex items-center space-x-2";
+      header.innerHTML = `
+        <span class="inline-block w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span>${sender}</span>
+      `;
+      msgDiv.appendChild(header);
+
+      const contentSpan = document.createElement("div");
+      contentSpan.className = "whitespace-pre-wrap text-slate-300 leading-relaxed";
+      msgDiv.appendChild(contentSpan);
+
+      chatBox.appendChild(msgDiv);
+
+      let idx = 0;
+      const speed = 10;
+      function streamText() {
+        if (idx < fullText.length) {
+          const chunk = fullText.slice(idx, idx + 4);
+          contentSpan.textContent += chunk;
+          idx += 4;
+          chatBox.scrollTop = chatBox.scrollHeight;
+          setTimeout(streamText, speed);
+        }
+      }
+      streamText();
+    }
+
+    /* ==========================================================================
+       SERVER-SIDE PEER REVIEWS & UNFILLED STAR SELECTOR
+       ========================================================================== */
+    const reviewsFeed = document.getElementById("reviews-feed");
+    const reviewForm = document.getElementById("comment-form");
+    const starRatingContainer = document.getElementById("star-rating");
+    const ratingLabel = document.getElementById("rating-label");
+    const reviewCounter = document.getElementById("review-counter");
+    let currentRating = 0; // Starts at 0 (unfilled)
+
+    // Render Review List
+    function renderReviewsList(reviews) {
+      reviewsFeed.innerHTML = "";
+      reviews.forEach(r => {
+        const div = document.createElement("div");
+        div.className = "p-3.5 rounded-xl bg-slate-950/70 border border-cyan-500/20 text-xs font-mono-code leading-relaxed";
+        div.innerHTML = `
+          <div class="flex items-center justify-between text-cyan-400 mb-1">
+            <span class="font-bold text-white">${escapeHtml(r.name)}</span>
+            <span class="text-amber-400">${"★".repeat(r.rating)}</span>
+          </div>
+          <p class="text-slate-300">${escapeHtml(r.comment)}</p>
+          <div class="text-[9px] text-slate-500 mt-1">${r.date}</div>
+        `;
+        reviewsFeed.appendChild(div);
+      });
+      reviewCounter.innerText = `${reviews.length} Server Reviews Verified`;
+    }
+
+    // Fetch Live Reviews from Flask Backend
+    async function loadServerReviews() {
+      try {
+        const res = await fetch("/api/reviews");
+        const reviews = await res.json();
+        renderReviewsList(reviews);
+      } catch (err) {
+        reviewCounter.innerText = "Local Fallback Active";
+      }
+    }
+    loadServerReviews();
+
+    // Star Selection (Hover + Click)
+    const starSpans = starRatingContainer.querySelectorAll("span");
+
+    function updateStarsDisplay(rating) {
+      starSpans.forEach((span, i) => {
+        if (i < rating) {
+          span.className = "text-amber-400 transition-colors hover:scale-125";
+        } else {
+          span.className = "text-slate-600 transition-colors hover:scale-125";
+        }
+      });
+    }
+
+    starSpans.forEach(star => {
+      star.addEventListener("mouseenter", () => {
+        const val = parseInt(star.getAttribute("data-value"));
+        updateStarsDisplay(val);
+      });
+      star.addEventListener("click", () => {
+        currentRating = parseInt(star.getAttribute("data-value"));
+        ratingLabel.innerText = `${currentRating} Star${currentRating > 1 ? 's' : ''}`;
+        ratingLabel.className = "text-[10px] text-amber-400 font-bold font-mono-code";
+        updateStarsDisplay(currentRating);
+        playTone(480 + currentRating * 60, "sine", 0.08, 0.04);
+      });
+    });
+
+    starRatingContainer.addEventListener("mouseleave", () => {
+      updateStarsDisplay(currentRating);
+    });
+
+    // Submit Review to Backend Server
+    reviewForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (currentRating === 0) {
+        alert("Please select a star rating (1 to 5 stars) before posting your review.");
+        return;
+      }
+      const name = document.getElementById("reviewer-name").value.trim();
+      const comment = document.getElementById("reviewer-comment").value.trim();
+      if (!name || !comment) return;
+
+      playTone(660, "sine", 0.1, 0.05);
+      const submitBtn = document.getElementById("submit-review-btn");
+      submitBtn.disabled = true;
+      submitBtn.innerText = "Syncing...";
+
+      try {
+        const res = await fetch("/api/reviews", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: name,
+            comment: comment,
+            rating: currentRating
+          })
+        });
+
+        const data = await res.json();
+        if (data.reviews) {
+          renderReviewsList(data.reviews);
+        }
+        document.getElementById("reviewer-name").value = "";
+        document.getElementById("reviewer-comment").value = "";
+        currentRating = 0;
+        updateStarsDisplay(0);
+        ratingLabel.innerText = "Select rating";
+        ratingLabel.className = "text-[10px] text-cyan-400 font-mono-code";
+      } catch (err) {
+        alert("Server failed to log review. Please check connection.");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Post Peer Review";
+      }
+    });
+
+    /* ==========================================================================
+       DOSSIER MODAL
+       ========================================================================== */
+    function openDossierModal() {
+      playTone(720, "sine", 0.1, 0.04);
+      document.getElementById("dossier-modal").classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+    }
+    function closeDossierModal() {
+      playTone(400, "sine", 0.08, 0.03);
+      document.getElementById("dossier-modal").classList.add("hidden");
+      document.body.style.overflow = "auto";
+    }
+
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeDossierModal();
+        if (isOracleOpen) closeOracleChamber();
+      }
+    });
+
+    function escapeHtml(string) {
+      return string.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    }
+  </script>
+</body>
+</html>

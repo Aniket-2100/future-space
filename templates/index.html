@@ -4,6 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Future Space // Relativistic Cosmology & Inter-Brane Engineering</title>
+
+  <!-- High-Tech Future Space Favicon (Cyan & Magenta Orbital Core) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23020617'/><ellipse cx='50' cy='50' rx='42' ry='16' stroke='%2338bdf8' stroke-width='4' fill='none' transform='rotate(-25 50 50)'/><ellipse cx='50' cy='50' rx='34' ry='11' stroke='%23d946ef' stroke-width='3' fill='none' transform='rotate(25 50 50)'/><circle cx='50' cy='50' r='14' fill='%2338bdf8'/><circle cx='50' cy='50' r='7' fill='%23ffffff'/></svg>">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -128,10 +132,6 @@
         class="btn-hex px-5 py-2 text-xs font-mono-code font-bold uppercase tracking-wider text-black bg-gradient-to-r from-cyan-400 via-sky-300 to-fuchsia-400 hover:from-white hover:to-cyan-300 shadow-[0_0_20px_rgba(56,189,248,0.5)] transition active:scale-95 flex items-center gap-1.5"
       >
         <span>⚡</span> Future Space AI
-      </button>
-
-      <button id="audio-toggle" class="btn-hex px-3.5 py-1.5 bg-slate-900/80 border border-cyan-500/30 text-[10px] font-mono-code text-cyan-300 hover:border-cyan-400 transition">
-        SFX: <span id="audio-state" class="text-cyan-400 font-bold">ON</span>
       </button>
     </div>
   </header>
@@ -327,7 +327,6 @@
           </span>
         </div>
 
-        <!-- Form with UNFILLED/SELECTABLE Star Rating -->
         <form id="comment-form" class="space-y-4">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <input
@@ -338,7 +337,6 @@
               class="bg-slate-950/80 border border-cyan-500/30 rounded-xl px-4 py-3 text-xs font-mono-code text-white placeholder-slate-500 focus:outline-none focus:border-cyan-400 transition"
             />
             
-            <!-- Interactive Stars (Unfilled by default) -->
             <div class="flex items-center justify-between bg-slate-950/80 border border-cyan-500/30 rounded-xl px-4 py-2.5 text-xs font-mono-code">
               <span class="text-slate-400">Your Score:</span>
               <div id="star-rating" class="flex space-x-1.5 cursor-pointer text-slate-600 text-lg select-none">
@@ -369,13 +367,11 @@
           </div>
         </form>
 
-        <div id="reviews-feed" class="mt-8 space-y-3.5 max-h-72 overflow-y-auto pr-2">
-          <!-- Populated from server -->
-        </div>
+        <div id="reviews-feed" class="mt-8 space-y-3.5 max-h-72 overflow-y-auto pr-2"></div>
       </div>
     </section>
 
-    <!-- DECK 4: FOOTER & CONTACT -->
+    <!-- DECK 4: FOOTER -->
     <footer id="contact" class="border-t border-cyan-500/20 bg-[#020617]/95 backdrop-blur-2xl py-16 px-6">
       <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         
@@ -407,7 +403,7 @@
           <ul class="space-y-2 text-slate-400">
             <li><button onclick="alert('Privacy Policy: All queries processed via isolated Flask API gateway without telemetry persistence.')" class="hover:text-cyan-400 transition text-left">Privacy Policy</button></li>
             <li><button onclick="alert('Theoretical Copyright: The Five Doctrines are proprietary cosmological models of Aniket Sharma / Future Space.')" class="hover:text-cyan-400 transition text-left">Cosmological IP Rights</button></li>
-            <li><button onclick="alert('Architecture: Operating locally on gemini-3.5-flash-lite endpoint.')" class="hover:text-cyan-400 transition text-left">Security Framework</button></li>
+            <li><button onclick="alert('Architecture: Operating on gemini-3.5-flash-lite endpoint.')" class="hover:text-cyan-400 transition text-left">Security Framework</button></li>
           </ul>
         </div>
 
@@ -446,20 +442,13 @@
 
   </div>
 
-  <!-- ==========================================================================
-       FUTURE SPACE AI COMMAND CHAMBER
-       - 3D Coin-Toss Flip Entry Animation
-       - Interactive 3D Cursor-Tracking Perspective Tilt
-       ========================================================================== -->
+  <!-- AI MODAL -->
   <div id="oracle-modal-backdrop" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6">
-    
-    <!-- 3D Flipping & Tilting Window -->
     <div 
       id="oracle-window" 
       class="tilt-card glass-panel max-w-2xl w-full h-[620px] rounded-3xl p-6 sm:p-8 flex flex-col border border-cyan-400/40 shadow-[0_0_60px_rgba(6,182,212,0.35)] relative"
       style="transform-style: preserve-3d;"
     >
-      <!-- Window Header Bar -->
       <div class="flex items-center justify-between pb-4 border-b border-cyan-500/20 bg-slate-950/40 -mx-6 -mt-6 px-6 pt-6 rounded-t-3xl">
         <div class="flex items-center space-x-3">
           <span class="w-3 h-3 rounded-full bg-cyan-400 animate-ping"></span>
@@ -476,7 +465,6 @@
         </button>
       </div>
 
-      <!-- Dialogue Stream -->
       <div id="chat-box" class="flex-1 overflow-y-auto pr-2 py-4 space-y-3.5 font-mono-code text-xs">
         <div class="p-4 rounded-xl bg-cyan-950/40 border border-cyan-500/30 text-slate-200">
           <div class="flex items-center space-x-2 text-cyan-400 font-semibold mb-1">
@@ -487,7 +475,6 @@
         </div>
       </div>
 
-      <!-- Submission Bar -->
       <form id="chat-form" class="pt-3 border-t border-cyan-500/20 flex items-center gap-2">
         <input
           type="text"
@@ -508,7 +495,6 @@
     </div>
   </div>
 
-  <!-- Persistent Floating Trigger (Bottom-Right) -->
   <button 
     onclick="openOracleChamber()"
     class="fixed bottom-6 right-6 z-40 btn-hex p-4 bg-gradient-to-r from-cyan-500 to-fuchsia-500 text-black shadow-[0_0_30px_rgba(56,189,248,0.5)] hover:scale-105 active:scale-95 transition flex items-center gap-2 font-mono-code text-xs font-bold uppercase tracking-wider"
@@ -517,9 +503,7 @@
     <span class="hidden sm:inline">Launch AI Console</span>
   </button>
 
-  <!-- ==========================================================================
-       PINN DOSSIER MODAL
-       ========================================================================== -->
+  <!-- DOSSIER MODAL -->
   <div id="dossier-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-2xl flex items-center justify-center p-4 sm:p-6 transition-all">
     <div class="glass-panel max-w-3xl w-full max-h-[85vh] rounded-3xl p-6 sm:p-8 flex flex-col border border-teal-500/30 shadow-[0_0_50px_rgba(20,184,166,0.3)]">
       <div class="flex items-center justify-between pb-4 border-b border-teal-500/20">
@@ -550,39 +534,8 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       THREE.JS HYPER-COSMOS ENGINE & SCRIPT SUBSYSTEMS
-       ========================================================================== -->
+  <!-- THREE.JS ENGINE (COMPLETELY SILENT ON SCROLL) -->
   <script>
-    /* Audio Subsystem */
-    let sfxEnabled = true;
-    const AudioCtx = window.AudioContext || window.webkitAudioContext;
-    let audioCtx = null;
-
-    function playTone(freq, type = "sine", duration = 0.08, gainVal = 0.04) {
-      if (!sfxEnabled) return;
-      if (!audioCtx) audioCtx = new AudioCtx();
-      try {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = type;
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
-
-    document.getElementById("audio-toggle").addEventListener("click", () => {
-      sfxEnabled = !sfxEnabled;
-      document.getElementById("audio-state").innerText = sfxEnabled ? "ON" : "OFF";
-      document.getElementById("audio-state").className = sfxEnabled ? "text-cyan-400 font-bold" : "text-slate-600 font-bold";
-    });
-
-    /* Three.js Canvas */
     const canvas = document.getElementById("universe-canvas");
     const scene = new THREE.Scene();
     scene.fog = new THREE.FogExp2(0x020617, 0.0006);
@@ -594,7 +547,7 @@
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-    // Andromeda Galaxy Particle System
+    // Andromeda Galaxy
     const GALAXY_COUNT = 11000;
     const galaxyGeo = new THREE.BufferGeometry();
     const galaxyPos = new Float32Array(GALAXY_COUNT * 3);
@@ -644,7 +597,7 @@
     galaxy.rotation.z = -0.45;
     scene.add(galaxy);
 
-    // Relativistic Star Field with Streaking on Scroll
+    // Relativistic Star Field
     const STAR_COUNT = 4500;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(STAR_COUNT * 3);
@@ -667,7 +620,7 @@
     const starField = new THREE.Points(starGeo, starMat);
     scene.add(starField);
 
-    // Automatic Supernova Shockwave
+    // Supernova Mesh Group
     const supernovaGroup = new THREE.Group();
     supernovaGroup.position.set(0, 0, -500);
 
@@ -721,7 +674,6 @@
     let supernovaTriggered = false;
     let supernovaProgress = 0;
 
-    // Scroll & Mouse Dynamics
     let scrollY = 0;
     let targetScrollY = 0;
     let scrollVelocity = 0;
@@ -779,11 +731,10 @@
       starGeo.attributes.position.needsUpdate = true;
       starMat.size = 2.2 + (warpFactor - 1.8) * 0.25;
 
-      // Supernova on scroll
+      // Supernova triggered silently on scroll
       if (scrollRatio > 0.42 && !supernovaTriggered) {
         supernovaTriggered = true;
         supernovaProgress = 0.01;
-        playTone(130, "sawtooth", 0.7, 0.12);
         supernovaGroup.position.set(camera.position.x, camera.position.y - 10, camera.position.z - 200);
 
         const ep = ejectaGeo.attributes.position.array;
@@ -834,9 +785,7 @@
     }
     renderUniverse();
 
-    /* ==========================================================================
-       3D CURSOR-TILT CARD EFFECT (Cards & Flipping Chat Window)
-       ========================================================================== */
+    /* 3D Cursor Tilt */
     function attachTiltEffects() {
       document.querySelectorAll('.tilt-card').forEach(card => {
         card.addEventListener('mousemove', e => {
@@ -852,28 +801,22 @@
     }
     attachTiltEffects();
 
-    /* ==========================================================================
-       FUTURE SPACE AI MODAL (Coin-Toss Flip Animation)
-       ========================================================================== */
+    /* AI Modal with Coin Toss Flip */
     const modalBackdrop = document.getElementById("oracle-modal-backdrop");
     const oracleWindow = document.getElementById("oracle-window");
     let isOracleOpen = false;
 
     function openOracleChamber() {
       isOracleOpen = true;
-      playTone(550, "sine", 0.12, 0.06);
       modalBackdrop.classList.remove("hidden");
-
-      // Trigger 3D Coin-Toss Flip
       oracleWindow.classList.remove("coin-toss-active");
-      void oracleWindow.offsetWidth; // Force CSS reflow
+      void oracleWindow.offsetWidth;
       oracleWindow.classList.add("coin-toss-active");
       document.body.style.overflow = "hidden";
     }
 
     function closeOracleChamber() {
       isOracleOpen = false;
-      playTone(320, "sine", 0.08, 0.03);
       modalBackdrop.classList.add("hidden");
       document.body.style.overflow = "auto";
     }
@@ -882,7 +825,6 @@
       if (e.target.id === "oracle-modal-backdrop") closeOracleChamber();
     });
 
-    // Oracle Chat Form
     const chatForm = document.getElementById("chat-form");
     const userInput = document.getElementById("user-input");
     const chatBox = document.getElementById("chat-box");
@@ -894,7 +836,6 @@
       const prompt = userInput.value.trim();
       if (!prompt) return;
 
-      playTone(520, "triangle", 0.08, 0.04);
       appendMessage("OPERATOR", prompt, "user");
       userInput.value = "";
       setLoading(true);
@@ -910,8 +851,7 @@
         setLoading(false);
 
         if (data.reply) {
-          playTone(880, "sine", 0.12, 0.03);
-          typewriterMessage("ORACLE // v2.5", data.reply);
+          typewriterMessage("FUTURE SPACE AI // v2.5", data.reply);
         } else {
           appendMessage("SYSTEM HALT", data.error || "Execution terminated unexpectedly.", "error");
         }
@@ -979,17 +919,14 @@
       streamText();
     }
 
-    /* ==========================================================================
-       SERVER-SIDE PEER REVIEWS & UNFILLED STAR SELECTOR
-       ========================================================================== */
+    /* Server-Side Reviews */
     const reviewsFeed = document.getElementById("reviews-feed");
     const reviewForm = document.getElementById("comment-form");
     const starRatingContainer = document.getElementById("star-rating");
     const ratingLabel = document.getElementById("rating-label");
     const reviewCounter = document.getElementById("review-counter");
-    let currentRating = 0; // Starts at 0 (unfilled)
+    let currentRating = 0;
 
-    // Render Review List
     function renderReviewsList(reviews) {
       reviewsFeed.innerHTML = "";
       reviews.forEach(r => {
@@ -1008,19 +945,17 @@
       reviewCounter.innerText = `${reviews.length} Server Reviews Verified`;
     }
 
-    // Fetch Live Reviews from Flask Backend
     async function loadServerReviews() {
       try {
         const res = await fetch("/api/reviews");
         const reviews = await res.json();
         renderReviewsList(reviews);
       } catch (err) {
-        reviewCounter.innerText = "Local Fallback Active";
+        reviewCounter.innerText = "Connecting to node...";
       }
     }
     loadServerReviews();
 
-    // Star Selection (Hover + Click)
     const starSpans = starRatingContainer.querySelectorAll("span");
 
     function updateStarsDisplay(rating) {
@@ -1043,7 +978,6 @@
         ratingLabel.innerText = `${currentRating} Star${currentRating > 1 ? 's' : ''}`;
         ratingLabel.className = "text-[10px] text-amber-400 font-bold font-mono-code";
         updateStarsDisplay(currentRating);
-        playTone(480 + currentRating * 60, "sine", 0.08, 0.04);
       });
     });
 
@@ -1051,7 +985,6 @@
       updateStarsDisplay(currentRating);
     });
 
-    // Submit Review to Backend Server
     reviewForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       if (currentRating === 0) {
@@ -1062,7 +995,6 @@
       const comment = document.getElementById("reviewer-comment").value.trim();
       if (!name || !comment) return;
 
-      playTone(660, "sine", 0.1, 0.05);
       const submitBtn = document.getElementById("submit-review-btn");
       submitBtn.disabled = true;
       submitBtn.innerText = "Syncing...";
@@ -1096,16 +1028,12 @@
       }
     });
 
-    /* ==========================================================================
-       DOSSIER MODAL
-       ========================================================================== */
+    /* Dossier Modal Handlers */
     function openDossierModal() {
-      playTone(720, "sine", 0.1, 0.04);
       document.getElementById("dossier-modal").classList.remove("hidden");
       document.body.style.overflow = "hidden";
     }
     function closeDossierModal() {
-      playTone(400, "sine", 0.08, 0.03);
       document.getElementById("dossier-modal").classList.add("hidden");
       document.body.style.overflow = "auto";
     }
